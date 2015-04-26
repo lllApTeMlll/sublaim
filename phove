@@ -1,0 +1,73 @@
+// Начало валидации телефона
+
+function clearVal4(val, limit) {
+	var newVal = val.replace(/[^\d]+/g, '');
+	if(newVal == ''){
+		return false;
+	}
+	else{
+		return newVal.substring(0,limit);
+	}
+};
+function getResString(newVal) {
+	var res = '';
+	for(var i = 0; i < newVal.length; i++){
+		if(i == 1){
+			res += ' (';
+			res += newVal.charAt(i);
+		}
+		else if(i == 4){
+			res += ') ';
+			res += newVal.charAt(i);
+		}
+		else if(i == 7){
+			res += '-';
+			res += newVal.charAt(i);
+		}
+		else if(i == 9){
+			res += '-';
+			res += newVal.charAt(i);
+		}
+		else{
+			res += newVal.charAt(i);
+		}
+	}
+	return res;
+};
+
+$("#phone").on('input', function(){
+			var val = $(this).val(),
+					limit = 11;
+	if(val == ''){
+			 $("#phone").css({
+				"borderColor":"#ff4a20",
+				"box-shadow":"0 0 7px #ff4a20"
+			 });
+	return;
+	} 
+
+			var newVal = clearVal4(val, limit);
+			if(!newVal){
+			$("#phone").css({
+				"borderColor":"#ff4a20",
+				"box-shadow":"0 0 7px #ff4a20"
+			 });
+				 $(this).val('');
+				 return;
+			}
+		if(val.length < 17){
+			$("#phone").css({
+				"borderColor":"#ff4a20",
+				"box-shadow":"0 0 7px #ff4a20"
+			 });
+		 }
+		 else{
+			$("#phone").css({
+				"borderColor":"#D6E9C6",
+				"box-shadow":"0 0 7px #D6E9C6"
+			 });
+		 }
+			var res = getResString(newVal);
+			$(this).val(res);
+});
+// Конец валидации телефона
